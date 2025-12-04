@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  <Type Name="cyh::type_detail">
+    <DisplayString>{{ Type={fullname, sb} }}</DisplayString>
+    <Expand>
+      <Item Name="ValueType" ExcludeView="simple">value_type, s</Item>
+      <Item Name="Namespace" ExcludeView="simple">type_namespace, s</Item>
+      <Item Name="TypeName" ExcludeView="simple">type_name, s</Item>
+      <Item Name="TypeSize" ExcludeView="simple">type_size</Item>
+      <Item Name="Hash" ExcludeView="simple">hash_code</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::reference">
+    <DisplayString Condition="m_block == 0">null</DisplayString>
+    <DisplayString>{{ Shared={m_block[0].m_ref_counter} }}</DisplayString>
+    <Expand>
+      <Item Name="CtrlAddr" ExcludeView="simple">m_block[0].m_address</Item>
+      <Item Name="CtrlVirt" ExcludeView="simple">m_block[0].m_instance</Item>
+      <Item Name="InstType" ExcludeView="simple">m_block[0].m_typename, sb</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::reference_&lt;*&gt;">
+    <DisplayString Condition="m_block == 0">null</DisplayString>
+    <DisplayString>{{ Shared={m_block[0].m_ref_counter} }}</DisplayString>
+    <Expand>
+      <Item Name="Instance">*($T1*)m_instance</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::file_stream">
+    <DisplayString>{{ Length={m_length} Position={m_position} }}</DisplayString>
+    <Expand>
+      <Item Name="Length" ExcludeView="simple">m_length</Item>
+      <Item Name="Position" ExcludeView="simple">m_position</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::container::myvec&lt;*, 0&gt;">
+    <DisplayString>{{ Size={(size_t)(block[1])} }}</DisplayString>
+    <Expand>
+      <Item Name="Size" ExcludeView="simple">(size_t)(block[1])</Item>
+      <Item Name="Capacity" ExcludeView="simple">(size_t)(block[2])</Item>
+      <ArrayItems>
+        <Size>(size_t)(block[1])</Size>
+        <ValuePointer>($T1*)(block[0])</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+  <Type Name="cyh::container::mylist&lt;*&gt;">
+    <DisplayString>{{ Size={m_count} }}</DisplayString>
+    <Expand>
+      <Item Name="Size" ExcludeView="simple">m_count</Item>
+      <LinkedListItems>
+        <Size>m_count</Size>
+        <HeadPointer>m_first</HeadPointer>
+        <NextPointer>next</NextPointer>
+        <ValueNode>*m_instance</ValueNode>
+      </LinkedListItems>
+    </Expand>
+  </Type>
+  <Type Name="cyh::container::myvec&lt;*, 2&gt;">
+    <DisplayString>{{ x={x} y={y} }}</DisplayString>
+    <Expand>
+      <Item Name="Size" ExcludeView="simple">x * y</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::container::myvec&lt;*, 3&gt;">
+    <DisplayString>{{ x={x} y={y} z={z} }}</DisplayString>
+    <Expand>
+      <Item Name="Size" ExcludeView="simple">x * y *z</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::container::matrix&lt;*&gt;">
+    <DisplayString Condition="(m_instance.m_block) == 0">{{ null }}</DisplayString>
+    <DisplayString>{{ [{m_size.x} ,{m_size.y}, {(size_t)m_indexes.block[1]}] }}</DisplayString>
+    <Expand>
+      <Item Name="Size" ExcludeView="simple">m_size.x * m_size.y * (size_t)m_indexes.block[1]</Item>
+      <Item Name="Width" ExcludeView="simple">m_size.x</Item>
+      <Item Name="Height" ExcludeView="simple">m_size.y</Item>
+      <Item Name="Depth" ExcludeView="simple">(size_t)m_indexes.block[1]</Item>
+      <Item Name="Instance" ExcludeView="simple">m_instance</Item>
+    </Expand>
+  </Type>
+  <Type Name="cyh::filesys::entry_compare_result">
+    <DisplayString Condition="details.is_created">{{ Created }}</DisplayString>
+    <DisplayString Condition="details.is_modified">{{ Modified }}</DisplayString>
+    <DisplayString Condition="details.is_deleted">{{ Deleted }}</DisplayString>
+    <Expand>
+    </Expand>
+  </Type>
+</AutoVisualizer>
